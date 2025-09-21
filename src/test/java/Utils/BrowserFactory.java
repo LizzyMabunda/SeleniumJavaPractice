@@ -8,7 +8,7 @@ import org.openqa.selenium.safari.SafariDriver;
 
 public class BrowserFactory {
 
-    static WebDriver driver;
+    public static WebDriver driver;
 
     public static WebDriver startBrowser(String browserChoice, String url) {
         if (browserChoice.equalsIgnoreCase("chrome")) {
