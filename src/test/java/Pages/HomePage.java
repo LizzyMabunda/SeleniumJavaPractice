@@ -22,7 +22,7 @@ public class HomePage {
         this.driver = driver;
     }
     public void verifyHomePageIsDisplayed() {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(visibilityOf(homePageTitle_id));
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(visibilityOf(homePageTitle_id));
         homePageTitle_id.isDisplayed();
     }
     public void clickLearningMaterial() {

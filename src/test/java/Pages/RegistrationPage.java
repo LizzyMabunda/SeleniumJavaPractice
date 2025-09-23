@@ -26,8 +26,7 @@ public class RegistrationPage extends LoginPage{
         WebElement registerConfirmPasswordField_id;
         @FindBy(id = "register-submit")
         WebElement CreateAccountButton_id;
-        @FindBy(id ="login-toggle")
-        WebElement loginHereButton_id;
+
 
         public RegistrationPage(WebDriver driver) {
             super(driver);
@@ -120,8 +119,6 @@ public class RegistrationPage extends LoginPage{
             emailField_id.clear();
 
         }
-        public void clickLoginHere() {
-            loginHereButton_id.click();
-        }
+
 
 }

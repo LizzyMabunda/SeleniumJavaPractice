@@ -22,13 +22,14 @@ public class LoginPage extends HomePage{
     WebElement passwordField_id;
     @FindBy(id = "login-submit")
     WebElement loginButton_id;
+    @FindBy(id = "practice-header")
+    WebElement practiceHeading_id;
     @FindBy(id = "practice-tabs")
     WebElement practiceTabs_id;
     @FindBy(id = "tab-btn-web")
     WebElement webAutomationBtn_id;
     @FindBy(id ="logout-button")
     WebElement logoutButton_id;
-
     @FindBy(id = "nav-btn-curriculum")
     WebElement curriculumButton_id;
     @FindBy(id = "curriculum-heading")
@@ -41,7 +42,7 @@ public class LoginPage extends HomePage{
     }
 
     public void validateLoginScreenHeading() {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(visibilityOf(LoginScreenHeading_id));
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(visibilityOf(LoginScreenHeading_id));
         LoginScreenHeading_id.isDisplayed();
     }
 
@@ -49,6 +50,8 @@ public class LoginPage extends HomePage{
         emailField_id.sendKeys(EmailAddress);
         passwordField_id.sendKeys(Password);
         loginButton_id.click();
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(visibilityOf(practiceHeading_id));
+        practiceHeading_id.isDisplayed();
     }
     public void validatePracticeTabsAreDisplayed() {
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(visibilityOf(practiceTabs_id));
@@ -56,6 +59,10 @@ public class LoginPage extends HomePage{
         logoutButton_id.click();
     }
 
+    public void clickOnWebAutomationButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(visibilityOf(webAutomationBtn_id));
+        webAutomationBtn_id.click();
+    }
     public void validateInvalidLoginDetailsErr() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.alertIsPresent());
@@ -71,7 +78,7 @@ public class LoginPage extends HomePage{
         System.out.println("Trimmed Password: " + Password);
         loginButton_id.click();
         Thread .sleep(5000);
-        //practiceTabs_id.isDisplayed();
+
     }
     public void switchTab(){
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(visibilityOf(curriculumButton_id));
