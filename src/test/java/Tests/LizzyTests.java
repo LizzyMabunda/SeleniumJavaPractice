@@ -1,8 +1,7 @@
 package Tests;
 
+import Utils.OpenNewTab;
 import org.testng.annotations.Test;
-
-import static Utils.BrowserFactory.driver;
 
 public class LizzyTests extends Base {
 
@@ -10,78 +9,88 @@ public class LizzyTests extends Base {
     public void VerifyHomePageIsDisplayedTests() {
         homePage.verifyHomePageIsDisplayed();
     }
+
     @Test(dependsOnMethods = "VerifyHomePageIsDisplayedTests")
     public void clickLearningMaterialTests() {
         homePage.clickLearningMaterial();
     }
+
     @Test(dependsOnMethods = "clickLearningMaterialTests")
     public void validateLoginScreenHeadingTests() {
         loginPage.validateLoginScreenHeading();
         takesScreenshots.takesSnapShot(driver, "LoginScreen Heading");
     }
 
-   //@Test(dependsOnMethods = "validateLoginScreenHeadingTests")
+    //@Test(dependsOnMethods = "validateLoginScreenHeadingTests")
     public void clickSignUpButtonTests() {
-       loginPage.clickSignUpToggle();
+        loginPage.clickSignUpToggle();
     }
-    //@Test(dependsOnMethods = "clickSignUpButtonTests")
+
+    // @Test(dependsOnMethods = "clickSignUpButtonTests")
     public void validateRegistrationScreenHeadingTests() {
         registrationPage.validateRegistrationScreenHeading();
     }
-   //@Test(dependsOnMethods = "validateRegistrationScreenHeadingTests")
+
+    //@Test(dependsOnMethods = "validateRegistrationScreenHeadingTests")
     public void passwordMisMatchRegistrationErrorTest() {
         registrationPage.captureRegistrationDetails("Lizzy", "Test", "mm@yahoo.com", "Rifuwo@07", "Rifuwo@09");
         registrationPage.passwordMisMatchRegistrationError();
     }
-    //@Test(dependsOnMethods = "passwordMisMatchRegistrationErrorTest")
+
+    // @Test(dependsOnMethods = "passwordMisMatchRegistrationErrorTest")
     public void passwordLengthRegistrationErrorTests() {
         registrationPage.passwordLengthRegistrationError("Test", "Test");
     }
+
     //@Test(dependsOnMethods = "passwordLengthRegistrationErrorTests")
     public void invalidEmailErrorTests() {
-        registrationPage.invalidEmailRegistrationError("mm@uhgsd","Rifuwo@07","Rifuwo@07");
+        registrationPage.invalidEmailRegistrationError("mm@uhgsd", "Rifuwo@07", "Rifuwo@07");
     }
+
     //@Test(dependsOnMethods = "invalidEmailErrorTests")
     public void successfulRegistration() throws InterruptedException {
-        registrationPage.successfulRegistration("Password", "Test", "help@yahoo.com", "Ntavele@1", "Ntavele@1");
+        registrationPage.successfulRegistration("Lizzy", "Test", "lmabunda@yahoo.com", "Ntavele@07", "Ntavele@07");
         //registrationPage.captureRegistrationDetails("Lizzy", "Test", "mom@test.com", "Rifuwo@08", "Rifuwo@08");
     }
+
     @Test(dependsOnMethods = "validateLoginScreenHeadingTests")
-    public void validLoginDetailsTests() {
-        loginPage.loginDetails("lm31@yahoo.com", "Rifuwo@07");
+    public void loginValidCredentialsTest() {
+        loginPage.loginValidCredentials("lmabunda@yahoo.com", "Ntavele@07");
+        loginPage.clickWebAutomationButton();
     }
-    @Test(dependsOnMethods = "validLoginDetailsTests")
-    public void clickOnWebAutomationButtonTests() {
-        loginPage.clickOnWebAutomationButton();
+
+    //@Test(dependsOnMethods = "openNewTabAndSwitchTests")
+    public void validLoginTest() {
+        loginPage.validLogin("lmabunda@yahoo.com", "Ntavele@07");
+        loginPage.clickLogoutButton();
     }
-    //@Test(dependsOnMethods = "validLoginDetailsTests")
-    public void validatePracticeTabsAreDisplayedTests() {
-        loginPage.validatePracticeTabsAreDisplayed();
-    }
-    //@Test(dependsOnMethods = "validatePracticeTabsAreDisplayedTests")
+
+    // @Test(dependsOnMethods = "validLoginTest")
     public void validateInvalidLoginDetailsErrTests() {
-        loginPage.loginDetails("lm31@yahoo.com", "Rifuwo@09");
-        loginPage.validateInvalidLoginDetailsErr();
+        loginPage.invalidPassword("lm31@yahoo.com", "Rifuwo@09");
+
     }
+
     //@Test(dependsOnMethods = "validateInvalidLoginDetailsErrTests")
-    public void trimSpaceLoginTests() throws InterruptedException {
+    public void trimSpaceLoginTest() {
         loginPage.trimSpaceLogin(" lm31@yahoo.com ", " Rifuwo@07 ");
     }
-    //@Test(dependsOnMethods = "trimSpaceLoginTests")
-    public void switchTabTests(){
-        loginPage.switchTab();
+
+    //@Test(dependsOnMethods = "trimSpaceLoginTest")
+    public void switchbackToLearningMaterialTabTests() {
+        loginPage.switchTabThenBack();
+        loginPage.loginValidCredentials("lm31@yahoo.com", "Rifuwo@07");
+
+
     }
-   // @Test(dependsOnMethods = "switchTabTests")
-    public void switchbackToLearningMaterialTabTests(){
-        loginPage.switchBackToLearningMaterialTab("lm31@yahoo.com", "Rifuwo@07");
-    }
-   //@Test(dependsOnMethods = "switchbackToLearningMaterialTabTests")
+
+    //@Test(dependsOnMethods = "switchbackToLearningMaterialTabTests")
     public void clickLogoutButtonTests() {
         loginPage.clickLogoutButton();
     }
 
     //@Test(dependsOnMethods = "clickOnWebAutomationButtonTests")
-    public void fillInventoryFormTests() throws InterruptedException {
+    public void fillInventoryFormTests() {
         webAutomationAdvancedPage.selectDeviceType("Laptop");
         webAutomationAdvancedPage.selectDeviceBrand("Macbook pro");
         webAutomationAdvancedPage.selectStorageOfChoice("64GB");
@@ -89,29 +98,62 @@ public class LizzyTests extends Base {
         webAutomationAdvancedPage.selectQuantity("3");
         webAutomationAdvancedPage.captureDeliveryAddress("123 Test Street, Test City, TX 750");
         webAutomationAdvancedPage.clickNextButton();
-        Thread.sleep(3000);
-    }
-    @Test(dependsOnMethods = "clickOnWebAutomationButtonTests")
-    public void noBrandErrorMessageTests() {
-        webAutomationAdvancedPage.selectDeviceType("Laptop");
-        webAutomationAdvancedPage.selectStorageOfChoice("64GB");
-        webAutomationAdvancedPage.selectColour("Gold");
-        webAutomationAdvancedPage.selectQuantity("3");
-        webAutomationAdvancedPage.captureDeliveryAddress("123 Test Street, Test City, TX 750");
-        //webAutomationAdvancedPage.clickNextButton();
-        webAutomationAdvancedPage.noBrandSelectedNextButtonDisabled();
-    }
-    //@Test(dependsOnMethods = "fillInventoryFormTests")
-    public void validateErrorMessageIsDisplayedTests() {
-        webAutomationAdvancedPage.quantityMoreThanMaxErrorMessage();
-    }
-    //@Test(dependsOnMethods = "fillInventoryFormTests" )
-    public void quantityLessThanMinErrorMessageTests() {
-        webAutomationAdvancedPage.quantityLessThanMinErrorMessage();
     }
 
+    @Test(dependsOnMethods = "loginValidCredentialsTest")
+    public void deviceTypeNotSelectedTest() {
+        webAutomationAdvancedPage.deviceTypeNotSelected();
+    }
+
+    @Test(dependsOnMethods = "deviceTypeNotSelectedTest")
+    public void noBrandSelectedTests() {
+        webAutomationAdvancedPage.selectDeviceType("Laptop");
+        webAutomationAdvancedPage.noBrandSelected();
+    }
+    @Test(dependsOnMethods = "noBrandSelectedTests")
+    public void storageSizeNotSelectedTests() {
+        webAutomationAdvancedPage.storageSizeNotSelected();
+    }
+    @Test(dependsOnMethods = "storageSizeNotSelectedTests")
+    public void validateAddressIsBlankTests() {
+        webAutomationAdvancedPage.validateAddressIsBlank();
+    }
+
+    @Test(dependsOnMethods = "validateAddressIsBlankTests")
+    public void quantityMoreThanMaxErrorTests() {
+        webAutomationAdvancedPage.selectDeviceBrand("Macbook pro");
+        webAutomationAdvancedPage.selectStorageOfChoice("64GB");
+        webAutomationAdvancedPage.selectColour("Gold");
+        webAutomationAdvancedPage.selectQuantity("11");
+        webAutomationAdvancedPage.captureDeliveryAddress("123 Test Street, Test City, TX 750");
+        webAutomationAdvancedPage.clickNextButton();
+        webAutomationAdvancedPage.quantityMoreThanMaxErrorMessage();
+    }
+
+    @Test(dependsOnMethods = "quantityMoreThanMaxErrorTests" )
+    public void quantityLessThanMinErrorMessageTests() {
+        webAutomationAdvancedPage.quantityLessThanMinErrorMessage("0");
+    }
+    @Test(dependsOnMethods = "quantityLessThanMinErrorMessageTests")
+    public void correctAllDetailsAndClickNextButtonTests() {
+        webAutomationAdvancedPage.selectQuantity("3");
+        webAutomationAdvancedPage.clickNextButton();
+    }
+    @Test(dependsOnMethods = "correctAllDetailsAndClickNextButtonTests")
+    public void openNewTabAndSwitchTests() {
+        openNewTab.openNewTabAndSwitch(driver);
+        homePage.verifyHomePageIsDisplayed();
+    }
+    @Test(dependsOnMethods = "openNewTabAndSwitchTests")
+    public void noDeviceAndStorageSelected() {
+        homePage.clickLearningMaterial();
+        loginPage.clickWebAutomationButton();
+        webAutomationAdvancedPage.noDeviceAndStorageSelected();
+    }
+
+
     //@AfterTest
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 

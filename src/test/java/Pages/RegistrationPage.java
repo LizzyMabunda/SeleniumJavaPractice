@@ -109,7 +109,7 @@ public class RegistrationPage extends LoginPage{
             wait.until(ExpectedConditions.alertIsPresent());
             Alert alert = driver.switchTo().alert();
             String alertText = alert.getText();
-            if (alertText.equals("Registration successful! Please login with your credentials.")) {
+            if (alertText.equals("Registration successful! You can now login with your credentials.")) {
                 System.out.println("Alert message is correct: " + alertText);
             } else {
                 System.out.println("Alert message is incorrect: " + alertText);

@@ -5,6 +5,7 @@ import Pages.LoginPage;
 import Pages.RegistrationPage;
 import Pages.WebAutomationAdvancedPage;
 import Utils.BrowserFactory;
+import Utils.OpenNewTab;
 import Utils.TakesScreenshots;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -17,6 +18,6 @@ public class Base {
     LoginPage loginPage = PageFactory.initElements(driver,LoginPage.class);
     RegistrationPage registrationPage = PageFactory.initElements(driver,RegistrationPage.class);
     WebAutomationAdvancedPage webAutomationAdvancedPage = PageFactory.initElements(driver,WebAutomationAdvancedPage.class);
-
     TakesScreenshots takesScreenshots = new TakesScreenshots();
+    OpenNewTab openNewTab = new OpenNewTab();
 }
