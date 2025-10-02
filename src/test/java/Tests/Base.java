@@ -6,6 +6,7 @@ import Pages.RegistrationPage;
 import Pages.WebAutomationAdvancedPage;
 import Utils.BrowserFactory;
 import Utils.OpenNewTab;
+import Utils.ReadFromExcel;
 import Utils.TakesScreenshots;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -20,4 +21,13 @@ public class Base {
     WebAutomationAdvancedPage webAutomationAdvancedPage = PageFactory.initElements(driver,WebAutomationAdvancedPage.class);
     TakesScreenshots takesScreenshots = new TakesScreenshots();
     OpenNewTab openNewTab = new OpenNewTab();
+
+    ReadFromExcel readFromExcel;
+    {
+        try{
+            readFromExcel= new ReadFromExcel();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

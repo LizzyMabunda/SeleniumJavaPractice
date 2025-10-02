@@ -173,5 +173,55 @@ public class WebAutomationAdvancedPage extends LoginPage{
             System.out.println("Unit price or subtotal are not $0.00" + unitPrice + " " + subtotal);
         }
     }
+    public void phoneStorage64GBQty1(){
+        WebElement unitPriceValue = driver.findElement(By.id("unit-price-value"));
+        WebElement quantityValue = driver.findElement(By.id("quantity-value"));
+        WebElement subtotalValue = driver.findElement(By.id("subtotal-value"));
+        String unitPrice = unitPriceValue.getText();
+        String quantity = quantityValue.getText();
+        String subtotal = subtotalValue.getText();
+        if (unitPrice.equals("R400.00") && quantity.equals("1") && subtotal.equals("R400.00")) {
+            System.out.println("quantity, Unit price and subtotal are correct: " + quantity + " " + unitPrice + " " + subtotal);
+        } else {
+            System.out.println("quantity, Unit price and subtotal are correct: " + quantity + " " + unitPrice + " " + subtotal);
+        }
+    }
+    public void phoneStorage128GBQty2(){
+        WebElement unitPriceValue = driver.findElement(By.id("unit-price-value"));
+        WebElement quantityValue = driver.findElement(By.id("quantity-value"));
+        WebElement subtotalValue = driver.findElement(By.id("subtotal-value"));
+        String unitPrice = unitPriceValue.getText();
+        String quantity = quantityValue.getText();
+        String subtotal = subtotalValue.getText();
+        if (unitPrice.equals("R480.00") && quantity.equals("2") && subtotal.equals("R960.00")) {
+            System.out.println("quantity, Unit price and subtotal are correct: " + quantity + " " + unitPrice + " " + subtotal);
+        } else {
+            System.out.println("quantity, Unit price and subtotal are correct: " + quantity + " " + unitPrice + " " + subtotal);
+        }
+    }
+    public void selectLaptopStorage256GBQty1(){
+        WebElement unitPriceValue = driver.findElement(By.id("unit-price-value"));
+        String unitPrice = unitPriceValue.getText();
+        if (unitPrice.equals("R1360.00") ) {
+            System.out.println("Unit price is correct: "  + unitPrice + " ");
+        } else {
+            System.out.println("Unit price is incorrect: " + unitPrice + " ");
+        }
+    }
+    public void clearDeviceTypeSelection(String deviceType) {
+        WebElement deviceTypeDropdown = driver.findElement(By.id("deviceType"));
+        Select select = new Select(deviceTypeDropdown);
+        select.selectByVisibleText(deviceType);
+
+        WebElement unitPriceValue = driver.findElement(By.id("unit-price-value"));
+        WebElement subtotalValue = driver.findElement(By.id("subtotal-value"));
+        String unitPrice = unitPriceValue.getText();
+        String subtotal = subtotalValue.getText();
+        if (unitPrice.equals("—") && subtotal.equals("—")) {
+            System.out.println("Pricing resets successfully!");
+        } else {
+            System.out.println("Unit price or subtotal are not resets back to default: " + unitPrice + " " + subtotal);
+        }
+    }
 
 }

@@ -55,7 +55,7 @@ public class LizzyTests extends Base {
 
     @Test(dependsOnMethods = "validateLoginScreenHeadingTests")
     public void loginValidCredentialsTest() {
-        loginPage.loginValidCredentials("lmabunda@yahoo.com", "Ntavele@07");
+        loginPage.loginValidCredentials(readFromExcel.username, readFromExcel.password);
         loginPage.clickWebAutomationButton();
     }
 
@@ -110,10 +110,12 @@ public class LizzyTests extends Base {
         webAutomationAdvancedPage.selectDeviceType("Laptop");
         webAutomationAdvancedPage.noBrandSelected();
     }
+
     @Test(dependsOnMethods = "noBrandSelectedTests")
     public void storageSizeNotSelectedTests() {
         webAutomationAdvancedPage.storageSizeNotSelected();
     }
+
     @Test(dependsOnMethods = "storageSizeNotSelectedTests")
     public void validateAddressIsBlankTests() {
         webAutomationAdvancedPage.validateAddressIsBlank();
@@ -130,25 +132,55 @@ public class LizzyTests extends Base {
         webAutomationAdvancedPage.quantityMoreThanMaxErrorMessage();
     }
 
-    @Test(dependsOnMethods = "quantityMoreThanMaxErrorTests" )
+    @Test(dependsOnMethods = "quantityMoreThanMaxErrorTests")
     public void quantityLessThanMinErrorMessageTests() {
         webAutomationAdvancedPage.quantityLessThanMinErrorMessage("0");
     }
+
     @Test(dependsOnMethods = "quantityLessThanMinErrorMessageTests")
     public void correctAllDetailsAndClickNextButtonTests() {
         webAutomationAdvancedPage.selectQuantity("3");
         webAutomationAdvancedPage.clickNextButton();
     }
+
     @Test(dependsOnMethods = "correctAllDetailsAndClickNextButtonTests")
     public void openNewTabAndSwitchTests() {
         openNewTab.openNewTabAndSwitch(driver);
         homePage.verifyHomePageIsDisplayed();
     }
+
     @Test(dependsOnMethods = "openNewTabAndSwitchTests")
     public void noDeviceAndStorageSelected() {
         homePage.clickLearningMaterial();
         loginPage.clickWebAutomationButton();
         webAutomationAdvancedPage.noDeviceAndStorageSelected();
+    }
+
+    @Test(dependsOnMethods = "noDeviceAndStorageSelected")
+    public void phoneStorage64GBQty1Test() {
+        webAutomationAdvancedPage.selectDeviceType("Phone");
+        webAutomationAdvancedPage.selectStorageOfChoice("64GB");
+        webAutomationAdvancedPage.phoneStorage64GBQty1();
+    }
+
+    @Test(dependsOnMethods = "phoneStorage64GBQty1Test")
+    public void phoneStorage128GBQty2Test() {
+        webAutomationAdvancedPage.selectStorageOfChoice("128GB");
+        webAutomationAdvancedPage.selectQuantity("2");
+        webAutomationAdvancedPage.phoneStorage128GBQty2();
+
+    }
+    @Test(dependsOnMethods = "phoneStorage128GBQty2Test")
+    public void selectLaptopStorage256GBQty1(){
+        webAutomationAdvancedPage.selectDeviceType("Laptop");
+        webAutomationAdvancedPage.selectStorageOfChoice("256GB");
+        webAutomationAdvancedPage.selectQuantity("1");
+        webAutomationAdvancedPage.selectLaptopStorage256GBQty1();
+    }
+    @Test(dependsOnMethods = "selectLaptopStorage256GBQty1")
+    public void clearDeviceTypeSelectionTest(){
+        webAutomationAdvancedPage.selectStorageOfChoice("64GB");
+        webAutomationAdvancedPage.clearDeviceTypeSelection("Select");
     }
 
 
