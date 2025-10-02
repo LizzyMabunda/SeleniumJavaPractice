@@ -32,7 +32,7 @@ jobs:
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Upload Artifact
-      uses: action/upload-artifact@v4
+      uses: actions/upload-artifact@v4
       with:
         name: my-artifact
         path: ./Reports/
