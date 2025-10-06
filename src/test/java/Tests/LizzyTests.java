@@ -89,17 +89,6 @@ public class LizzyTests extends Base {
         loginPage.clickLogoutButton();
     }
 
-    //@Test(dependsOnMethods = "clickOnWebAutomationButtonTests")
-    public void fillInventoryFormTests() {
-        webAutomationAdvancedPage.selectDeviceType("Laptop");
-        webAutomationAdvancedPage.selectDeviceBrand("Macbook pro");
-        webAutomationAdvancedPage.selectStorageOfChoice("64GB");
-        webAutomationAdvancedPage.selectColour("Gold");
-        webAutomationAdvancedPage.selectQuantity("3");
-        webAutomationAdvancedPage.captureDeliveryAddress("123 Test Street, Test City, TX 750");
-        webAutomationAdvancedPage.clickNextButton();
-    }
-
     @Test(dependsOnMethods = "loginValidCredentialsTest")
     public void deviceTypeNotSelectedTest() {
         webAutomationAdvancedPage.deviceTypeNotSelected();
@@ -114,6 +103,7 @@ public class LizzyTests extends Base {
     @Test(dependsOnMethods = "noBrandSelectedTests")
     public void storageSizeNotSelectedTests() {
         webAutomationAdvancedPage.storageSizeNotSelected();
+        takesScreenshots.takesSnapShot(driver, "storageSizeNotSelected");
     }
 
     @Test(dependsOnMethods = "storageSizeNotSelectedTests")
@@ -182,8 +172,126 @@ public class LizzyTests extends Base {
         webAutomationAdvancedPage.selectStorageOfChoice("64GB");
         webAutomationAdvancedPage.clearDeviceTypeSelection("Select");
     }
+    @Test(dependsOnMethods = "clearDeviceTypeSelectionTest")
+    public void fillInventoryFormTests() {
+        webAutomationAdvancedPage.selectDeviceType("Laptop");
+        webAutomationAdvancedPage.selectDeviceBrand("Macbook pro");
+        webAutomationAdvancedPage.selectStorageOfChoice("64GB");
+        webAutomationAdvancedPage.selectColour("Gold");
+        webAutomationAdvancedPage.selectQuantity("1");
+        webAutomationAdvancedPage.captureDeliveryAddress("123 Test Street, Test City, TX 750");
+        webAutomationAdvancedPage.clickNextButton();
+    }
+    @Test(dependsOnMethods = "fillInventoryFormTests")
+    public void verifyInventoryReviewIsDisplayedTests(){
+        webAutomationAdvancedPage.verifyInventoryReviewIsDisplayed();
+        takesScreenshots.takesSnapShot(driver, "Inventory Review Page");
+    }
+    @Test(dependsOnMethods = "verifyInventoryReviewIsDisplayedTests")
+    public void verifyShippingMethodExpressAmountTests(){
+        webAutomationAdvancedPage.verifyShippingMethodExpressAmount();
+    }
+    @Test(dependsOnMethods = "verifyShippingMethodExpressAmountTests")
+    public void verifyWarrantyRowAmountsTests(){
+        webAutomationAdvancedPage.verifyWarrantySelectionAmounts();
+    }
+    @Test(dependsOnMethods = "verifyWarrantyRowAmountsTests")
+    public void clickBackButtonAndModifyQuantityTests(){
+        webAutomationAdvancedPage.clickBackButtonAndModifyQuantity();
+        webAutomationAdvancedPage.selectDeviceType("Phone");
+        webAutomationAdvancedPage.selectDeviceBrand("Samsung");
+        webAutomationAdvancedPage.selectStorageOfChoice("128GB");
+        webAutomationAdvancedPage.selectColour("White");
+        webAutomationAdvancedPage.selectQuantity("2");
+        webAutomationAdvancedPage.captureDeliveryAddress("123 Test Street, Test City, TX 750");
+        webAutomationAdvancedPage.clickNextButton();
+    }
+    @Test(dependsOnMethods = "clickBackButtonAndModifyQuantityTests")
+    public void verifyFormulaForPhone128GBQty2Express1YrSave10(){
+        webAutomationAdvancedPage.clickExpressShippingMethodButton();
+        webAutomationAdvancedPage.click1yearWarrantyOption();
+        webAutomationAdvancedPage.captureDiscountPercentage("SAVE10");
+        webAutomationAdvancedPage.verifyFormulaForPhone128GBQty2Express1YrSave10();
+        takesScreenshots.takesSnapShot(driver, "Final Order Summary");
+    }
+   @Test(dependsOnMethods = "verifyFormulaForPhone128GBQty2Express1YrSave10")
+    public void verifySAVE20DiscountCodeMessageUpdate(){
+        webAutomationAdvancedPage.verifySAVE20DiscountCodeMessageUpdate("SAVE20");
+        //takesScreenshots.takesSnapShot(driver, "Final Order Summary with SAVE20");
+    }
+    @Test(dependsOnMethods = "verifySAVE20DiscountCodeMessageUpdate")
+    public void verifyInvalidDiscountCodeErrorMessageTests(){
+        webAutomationAdvancedPage.verifyInvalidDiscountCodeMessageUpdate("SAVE100");
+    }
+    @Test(dependsOnMethods = "verifyInvalidDiscountCodeErrorMessageTests")
+    public void verifyClearInputNoMessageDisplayedTests() throws InterruptedException {
+        webAutomationAdvancedPage.verifyClearInputNoMessageDisplayed();
+    }
+    @Test(dependsOnMethods = "verifyClearInputNoMessageDisplayedTests")
+    public void addOneValidItemToCart(){
+        webAutomationAdvancedPage.addValidItemToCart("SAVE20");
+       // webAutomationAdvancedPage.verifyInventoryReviewIsDisplayed();
+    }
+    @Test(dependsOnMethods = "addOneValidItemToCart")
+    public void addTwoValidItemToCart(){
+        webAutomationAdvancedPage.selectDeviceType("Laptop");
+        webAutomationAdvancedPage.selectDeviceBrand("Macbook pro");
+        webAutomationAdvancedPage.selectStorageOfChoice("256GB");
+        webAutomationAdvancedPage.selectColour("Blue");
+        webAutomationAdvancedPage.selectQuantity("1");
+        webAutomationAdvancedPage.captureDeliveryAddress("123 Test Street, Test City, TX 750");
+        webAutomationAdvancedPage.clickNextButton();
+        webAutomationAdvancedPage.clickStandardShippingMethodButton();
+        webAutomationAdvancedPage.clickNoneWarrantyOption();
+        //webAutomationAdvancedPage.captureDiscountPercentage("SAVE10");
+        webAutomationAdvancedPage.clickAddToCartButton();
 
+    }
+   @Test(dependsOnMethods = "addTwoValidItemToCart")
+    public void RemoveItemFromCart(){
+        webAutomationAdvancedPage.RemoveItemFromCart();
+    }
+    @Test(dependsOnMethods = "RemoveItemFromCart")
+    public void RemoveSecondItemFromCartTests(){
+        webAutomationAdvancedPage.RemoveSecondItemFromCart();
+    }
+    @Test(dependsOnMethods = "RemoveSecondItemFromCartTests")
+    public void verifyPlaceOrderCancelButtonsDisplayed() {
+        webAutomationAdvancedPage.selectDeviceType("Laptop");
+        webAutomationAdvancedPage.selectDeviceBrand("Macbook pro");
+        webAutomationAdvancedPage.selectStorageOfChoice("256GB");
+        webAutomationAdvancedPage.selectColour("Gold");
+        webAutomationAdvancedPage.selectQuantity("1");
+        webAutomationAdvancedPage.captureDeliveryAddress("123 Test Street, Test City, TX 750");
+        webAutomationAdvancedPage.clickNextButton();
+        webAutomationAdvancedPage.clickExpressShippingMethodButton();
+        webAutomationAdvancedPage.click2yearsWarrantyOption();
+        webAutomationAdvancedPage.captureDiscountPercentage("SAVE10");
+        webAutomationAdvancedPage.clickAddToCartButton();
+        webAutomationAdvancedPage.clickReviewCartOrderFlow();
 
+    }
+    @Test(dependsOnMethods = "verifyPlaceOrderCancelButtonsDisplayed")
+    public void clickCancelOrderFlowTests(){
+        webAutomationAdvancedPage.clickCancelReviewOrderButton();
+    }
+
+    @Test(dependsOnMethods = "clickCancelOrderFlowTests")
+    public void placeOrderSuccessful() {
+        webAutomationAdvancedPage.clickReviewCartOrderFlow();
+        webAutomationAdvancedPage.confirmCartOrderFlow();
+        webAutomationAdvancedPage.clickPlaceOrderFlow();
+
+    }
+    @Test(dependsOnMethods = "placeOrderSuccessful")
+    public void viewInvoiceFromToast(){
+        webAutomationAdvancedPage.viewInvoiceFromToast();
+        takesScreenshots.takesSnapShot(driver, "Invoice Page");
+    }
+    public void switchToOriginalTabTests(){
+        webAutomationAdvancedPage.switchToOriginalTab(driver);
+        homePage.verifyHomePageIsDisplayed();
+    }
     //@AfterTest
     public void tearDown() {
         driver.quit();

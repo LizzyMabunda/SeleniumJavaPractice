@@ -15,7 +15,7 @@ public class BrowserFactory {
         if (browserChoice.equalsIgnoreCase("chrome")) {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--headless");
-            driver = new ChromeDriver(chromeOptions);//this line start the browser
+            driver = new ChromeDriver();//this line start the browser
         } else if (browserChoice.equalsIgnoreCase("firefox")) {
             driver = new FirefoxDriver();
         } else if (browserChoice.equalsIgnoreCase("edge")) {
